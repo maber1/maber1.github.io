@@ -1,0 +1,4 @@
+.cart__item{display:flex;justify-content:space-between;max-width:1000px;padding:15px;background:#fff;color:#000;text-align:left;font-family:"Nunito Sans",Helvetica,Arial,sans-serif}.cart__item:hover{box-shadow:0 5px 15px 0 rgba(0,0,0,.14)}.cart__item-picture{width:200px}.cart__item-info{width:60%;padding:0 15px}.cart__item-name{margin:0;font-size:16px;font-weight:600}.cart__item-description{font-size:13px;font-weight:400}.cart__item-price{font-size:16px;font-weight:600;white-space:nowrap;padding:0 15px}.cart__item-control{padding:0 15px}
+.btn__del-cart{cursor:pointer;padding:0;border:0;background:rgba(0,0,0,0);color:#919191}.btn__del-cart:hover{color:#0156ff;transition:all .4s}
+
+/*# sourceMappingURL=components-Cart-CartItem-CartItem-stories.css.map*/
