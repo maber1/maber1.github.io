@@ -5,6 +5,7 @@ import { CartItem } from './CartItem';
 const meta: Meta<typeof CartItem> = {
     title: 'Shop/Cart/CartItem',
     component: CartItem,
+    tags: ['autodocs'],
 };
 
 export default meta;

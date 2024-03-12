@@ -1,27 +1,29 @@
 import React, {FC} from "react";
-import cn from "clsx";
-import "./BtnToCart.scss"
 import IconToCart from "./icon_addcart.svg";
+import Button from "../Button";
+import {IButtonProps} from "../../types/buttonTypes";
+import Input from "../Input";
+import "./BtnToCart.scss";
 
-interface IBtnToCart extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IBtnToCart extends IButtonProps {
     counter: number,
 }
 
-export const BtnToCart:FC<IBtnToCart> = (props) => {
+const BtnToCart: FC<IBtnToCart> = ({counter, ...props}) => {
 
     return (
-        <div className={cn('container__add-to-cart')}>
-            {props.counter === 0 ? (
-                <button className={cn('btn','btn__to-cart')} {...props}>
-                    <IconToCart/>в корзину
-                </button>
+            counter === 0 ? (
+                <Button icon={<IconToCart/>} {...props} />
             ) : (
-                <div className={cn('container__btn-counter')}>
-                    <button className={cn('btn','btn__action-plus')}>-</button>
-                    <input type="text" value="" className={cn('input','input__to-cart')} />
-                    <button className={cn('btn','btn__action-minus')}>+</button>
+                <div className='container__btn-counter'>
+                    <Button label='-' className='button__action-minus'/>
+                    <div className='input__wrap'>
+                        <Input className='input__to-cart' />
+                    </div>
+                    <Button label='+' className='button__action-plus'/>
                 </div>
-            )}
-        </div>
+            )
     );
 };
+
+export default BtnToCart;

@@ -5,11 +5,12 @@ import "../../translations"
 import { LangSwitcher } from './LangSwitcher';
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Button} from "../../components/button/Button";
+import Button from "../../components/Button";
 
 const meta: Meta<typeof LangSwitcher> = {
     title: 'Shop/Switchers/LangSwitcher',
     component: LangSwitcher,
+    tags: ['autodocs'],
 };
 
 export default meta;
@@ -25,7 +26,7 @@ export const TestChangeLanguage: Story = {
         return (
             <>
                 <LangSwitcher />
-                <Button label={t(`components.testComponent.buttonText`)} primary={true} size='large' />
+                <Button label={t(`components.testComponent.buttonText`)} />
             </>
 
         );

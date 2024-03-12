@@ -2,10 +2,12 @@ import type {Meta, StoryObj} from '@storybook/react';
 import React, {useEffect, useRef, useState} from 'react';
 import CardsList from "../CardsList/CardsList";
 import {generateRandomProducts} from "../../components/helpers";
+import Button from "../Button";
 
 const meta: Meta<typeof CardsList> = {
     title: 'Shop/Cards/CardsList',
     component: CardsList,
+    tags: ['autodocs'],
 };
 
 export default meta;
@@ -100,7 +102,7 @@ export const ProductListButtonLoad: Story = {
             <>
                 <CardsList products={products}/>
                 <br/>
-                <button onClick={handleLoadProducts}>Показать еще</button>
+                <Button label='Показать еще' lineCenter onClick={handleLoadProducts} />
             </>
         );
     }

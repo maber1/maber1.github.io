@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import cn from "clsx";
 import "./Card.scss"
-import {BtnToCart} from "../BtnToCart/BtnToCart";
+import BtnToCart from "../BtnToCart/BtnToCart";
 import {priceFormat} from "../helpers";
 
 interface ICard {
@@ -20,7 +20,7 @@ export const Card: FC<ICard> = ({image, name, description, price}) => {
             <h3 className={cn('card__name')}>{name}</h3>
             <p className={cn('card__description')}>{descCrop}...</p>
             <div className={cn('card__price')}>цена: {priceFormat(price)} ₽</div>
-            <BtnToCart counter={0} disabled/>
+            <BtnToCart label='в корзину' counter={0} fullWidth disabled/>
         </div>
     )
 }
