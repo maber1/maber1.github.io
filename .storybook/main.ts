@@ -51,7 +51,8 @@ const config: StorybookConfig = {
                 test: /\.s[ac]ss$/i,
                 exclude: /\.module\.s([ca])ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
+                    'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
@@ -66,9 +67,9 @@ const config: StorybookConfig = {
             },
         );
 
-        customConfig.plugins.push(
-            new MiniCssExtractPlugin()
-        );
+        // customConfig.plugins.push(
+        //     new MiniCssExtractPlugin()
+        // );
 
         return customConfig;
     },

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import cn from "clsx";
 import "./Product.scss"
-import {BtnToCart} from "../BtnToCart/BtnToCart";
+import BtnToCart from "../BtnToCart/BtnToCart";
 import {priceFormat} from "../helpers";
 
 interface IProduct {
@@ -26,7 +26,7 @@ export const Product:FC<IProduct> = ({image, name, description, price}) => {
                 <h3 className={cn('product__name')}>{name}</h3>
                 <p className={cn('product__description')}>{description}</p>
                 <div className={cn('product__price')}>цена: {priceFormat(price)} ₽</div>
-                <BtnToCart counter={0} disabled />
+                <BtnToCart label='в корзину' counter={0} disabled />
             </div>
         </div>
     );

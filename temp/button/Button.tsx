@@ -7,7 +7,7 @@ interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string | null;
   size?: string;
-  label: string;
+  label?: string;
 }
 /**
  * Primary UI component for user interaction

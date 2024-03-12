@@ -3,6 +3,18 @@ $light: (
         mainBgInvers: #333,
         //bgSecondary: #476173,
         text: #333,
+        borderColor: #0156ff,
+
+        //Button
+        buttonText: #0156ff,
+        buttonBg: #fff,
+        buttonTextHover: #fff,
+        buttonBgHover: #0156ff,
+
+        //Input
+        inputText: #000,
+        inputBg: #fff,
+        inputBorderColor: #a2a6b0,
 );
 
 $dark: (
@@ -10,4 +22,16 @@ $dark: (
         mainBgInvers: #fff,
         //bgSecondary: #fff,
         text: #fff,
+        borderColor: #fff,
+
+        //Button
+        buttonText: #fff,
+        buttonBg: #333,
+        buttonTextHover: #333,
+        buttonBgHover: #fff,
+
+        //Input
+        inputText: #fff,
+        inputBg: #333,
+        inputBorderColor: #a2a6b0,
 );

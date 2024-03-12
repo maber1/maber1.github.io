@@ -1,0 +1,48 @@
+@import '../../styles/common';
+
+.button {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  transition: all .4s;
+  cursor: pointer;
+  background: transparent;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 2px solid;
+  font-size: 14px;
+  font-weight: 600;
+  @include theme(color, buttonText);
+  @include theme(background-color, buttonBg);
+  @include theme(border-color, borderColor);
+
+  &:disabled {
+    color: #d2d2d2;
+    border: 2px solid #d2d2d2;
+    cursor: not-allowed;
+  }
+
+  svg {
+    fill: currentColor;
+    margin-right: 10px;
+  }
+
+  &:not([disabled]):hover {
+    @include theme(color, buttonTextHover);
+    @include theme(background-color, buttonBgHover);
+  }
+
+  &__w100 {
+    width: 100%;
+  }
+
+  &__center {
+    margin: 0 auto;
+  }
+
+  &__icon {
+    svg {
+      margin-right: unset;
+    }
+  }
+}
