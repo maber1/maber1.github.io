@@ -12,6 +12,7 @@
   border: 2px solid;
   font-size: 14px;
   font-weight: 600;
+
   @include theme(color, buttonText);
   @include theme(background-color, buttonBg);
   @include theme(border-color, borderColor);

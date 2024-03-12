@@ -3,7 +3,6 @@ import IconToCart from "./icon_addcart.svg";
 import Button from "../Button";
 import {IButtonProps} from "../../types/buttonTypes";
 import Input from "../Input";
-import cn from "clsx";
 import "./BtnToCart.scss";
 
 interface IBtnToCart extends IButtonProps {
