@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import IconToCart from "./icon_addcart.svg";
 import Button from "../Button";
-import {IButtonProps} from "../../types/buttonTypes";
+import {IButtonProps} from "src/types/buttonTypes";
 import "./BtnToCart.scss";
 
 interface IBtnToCart extends IButtonProps {
@@ -17,7 +17,7 @@ const BtnToCart: FC<IBtnToCart> = ({counter, ...props}) => {
                 <div className='container__btn-counter'>
                     <Button label='-' className='button__action-minus'/>
                     <div className='input__wrap'>
-                        <input className='input input__to-cart' />
+                        <input type='text' className='input input__to-cart' />
                     </div>
                     <Button label='+' className='button__action-plus'/>
                 </div>

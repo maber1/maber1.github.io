@@ -3,24 +3,14 @@ import cn from "clsx";
 import "./Product.scss"
 import BtnToCart from "../BtnToCart/BtnToCart";
 import {priceFormat} from "../helpers";
-
-interface IProduct {
-    image: string[],
-    name: string,
-    description: string,
-    price: number | string,
-}
+import {IProduct} from "src/types/productTypes";
 
 export const Product:FC<IProduct> = ({image, name, description, price}) => {
-    const images:React.JSX.Element[] = image.map((image: string, index:number) => <img key={index} className={cn('product__gallery-item')} src={image} alt=""/>);
 
     return (
         <div className={cn('product')}>
             <div className="product__pictures">
-                <img className={cn('product__cover')} src={image[0]} alt=""/>
-                <div className="product__gallery-items">
-                    {images}
-                </div>
+                <img className={cn('product__cover')} src={image} alt=""/>
             </div>
             <div className="product__info">
                 <h3 className={cn('product__name')}>{name}</h3>
