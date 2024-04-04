@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import "./CardsList.scss";
 import {Card} from "../Card/Card";
-import {Product} from "../../types/cardProductTypes";
+import {IProduct} from "src/types/productTypes";
 
 interface IProducts {
-    products: Product[],
+    products: IProduct[],
     cardsRef?: React.RefObject<HTMLDivElement>,
 }
 

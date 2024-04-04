@@ -24,4 +24,8 @@ body {
   @include theme(color, inputText);
   @include theme(background-color, inputBg);
   @include theme(border-color, inputBorderColor);
+
+  &__error {
+    border-color: #cc3a3a !important;
+  }
 }
