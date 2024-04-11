@@ -42,11 +42,12 @@ export const Default: Story = {
 
 export const TestShowModal: Story = {
     render: () => {
+        const [isOpen, setIsOpen] = useState<boolean>(false);
+        const [inputValue, setInputValue] = useState('');
+
         const handleShowModal = (): void => {
             setIsOpen(true);
         }
-        const [isOpen, setIsOpen] = useState<boolean>(false);
-        const [inputValue, setInputValue] = useState('');
 
         return (
             <>

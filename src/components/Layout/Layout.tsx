@@ -3,42 +3,21 @@ import cn from "clsx";
 import './Layout.scss';
 import {Header} from "../Header/Header";
 
-export const Layout:FC = () => {
+interface ILayout {
+    children: React.ReactNode
+}
+
+const Layout:FC<ILayout> = ({children}) => {
+
     return (
         <div className={cn('layout')}>
-            <Header />
-            <div className="layout__content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolorum eaque earum error inventore ipsam, itaque, laborum necessitatibus, nulla officia porro sapiente veniam. Consequuntur doloremque doloribus impedit libero quo reprehenderit.
-                </p>
-            </div>
+            <Header/>
+
+            <main className="layout__content">
+                {children}
+            </main>
         </div>
     )
 }
+
+export default Layout;
