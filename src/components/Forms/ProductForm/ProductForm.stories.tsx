@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import React from 'react';
-import ProductForm from "./ProductForm";
+import {ProductForm} from "./ProductForm";
 
 const meta: Meta<typeof ProductForm> = {
     title: 'Shop/Forms/ProductForm',

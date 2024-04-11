@@ -12,7 +12,7 @@ type FormData = {
     image: string,
 };
 
-const ProductForm: React.FC = (data: IProduct) => {
+export const ProductForm: React.FC = (data: IProduct) => {
     const {
         register,
         handleSubmit,
@@ -106,5 +106,3 @@ const ProductForm: React.FC = (data: IProduct) => {
         </form>
     );
 };
-
-export default ProductForm;

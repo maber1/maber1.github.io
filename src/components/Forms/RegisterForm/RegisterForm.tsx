@@ -12,7 +12,7 @@ type FormData = {
     email: string,
 };
 
-const RegisterForm: React.FC = memo(() => {
+export const RegisterForm: React.FC = memo(() => {
     const {
         register,
         handleSubmit,
@@ -110,5 +110,3 @@ const RegisterForm: React.FC = memo(() => {
         </form>
     );
 });
-
-export default RegisterForm;
