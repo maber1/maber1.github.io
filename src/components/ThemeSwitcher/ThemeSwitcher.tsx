@@ -1,8 +1,8 @@
 import React, {FC, useContext} from 'react'
 import "./ThemeSwitcher.scss"
-import {ThemeContext} from "../../providers/ThemeProvider";
-import IconSun from "./sun.svg"
-import IconMoon from "./moon.svg"
+import {ThemeContext} from "src/providers/ThemeProvider";
+import IconSun from "src/icons/sun.svg"
+import IconMoon from "src/icons/moon.svg"
 
 export const ThemeSwitcher: FC = () => {
     const {theme, toggleTheme} = useContext(ThemeContext);

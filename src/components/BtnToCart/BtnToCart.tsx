@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import IconToCart from "./icon_addcart.svg";
+import IconToCart from "src/icons/icon_addcart.svg";
 import Button from "../Button";
 import {IButtonProps} from "src/types/buttonTypes";
 import "./BtnToCart.scss";
