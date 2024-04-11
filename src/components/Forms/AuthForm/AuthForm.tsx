@@ -3,13 +3,16 @@ import {useForm} from 'react-hook-form';
 import Button from "../../Button";
 import cn from "clsx";
 import '../Forms.scss';
+import {useLocation, useNavigate} from "react-router-dom";
 
 type FormData = {
     email: string,
     password: string,
 };
 
-const AuthForm: React.FC = memo(() => {
+export const AuthForm: React.FC = memo(() => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -37,6 +40,7 @@ const AuthForm: React.FC = memo(() => {
     useEffect(() => {
         if (isSubmitSuccessful) {
             reset();
+            navigate(location.state?.from || '/');
         }
     }, [isSubmitSuccessful])
 
@@ -64,5 +68,3 @@ const AuthForm: React.FC = memo(() => {
         </form>
     );
 });
-
-export default AuthForm;

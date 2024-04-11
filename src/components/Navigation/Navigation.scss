@@ -1,0 +1,12 @@
+.menu {
+  a {
+    color: #0156ff;
+    text-decoration: none;
+    padding: 5px;
+
+    &[aria-current] {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
+}
