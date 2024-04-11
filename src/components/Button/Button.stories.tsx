@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './Button';
 import React from 'react';
-import IconToCart from "../BtnToCart/icon_addcart.svg";
+import IconToCart from "../../icons/icon_addcart.svg";
 
 const meta: Meta<typeof Button> = {
     title: 'Shop/Buttons/Button',
