@@ -4,6 +4,7 @@
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
   "author": "Igor <spirit-drive@yandex.ru>",
+  "homepage": "https://maber1.github.io",
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
