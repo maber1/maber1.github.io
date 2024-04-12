@@ -1,13 +1,16 @@
 import React from 'react';
-import {Header} from "./components/Header/Header";
+import Layout from "src/components/Layout/Layout";
+import {ModalRoute} from "src/components/Modal/ModalRoute";
+import {RoutesProvider} from "src/providers/RoutesProvider";
 
-function App() {
 
-  return (
-    <>
-      <Header />
-    </>
-  );
+const App = () => {
+    return (
+        <Layout>
+            <ModalRoute />
+            <RoutesProvider />
+        </Layout>
+    );
 }
 
 export default App;
