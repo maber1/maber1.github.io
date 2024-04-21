@@ -13,6 +13,9 @@ body {
   @include theme(color, text);
   @include theme(background-color, mainBg);
 }
+pre {
+  white-space: pre-wrap;
+}
 
 .input {
   outline: none;

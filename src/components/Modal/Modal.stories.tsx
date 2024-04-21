@@ -45,8 +45,8 @@ export const TestShowModal: Story = {
         const [isOpen, setIsOpen] = useState<boolean>(false);
         const [inputValue, setInputValue] = useState('');
 
-        const handleShowModal = (): void => {
-            setIsOpen(true);
+        const handleModal = (): void => {
+            setIsOpen(!isOpen);
         }
 
         return (
@@ -55,10 +55,10 @@ export const TestShowModal: Story = {
                     type="text"
                     onBlur={(e) => setInputValue(e.target.value)}
                 />
-                <button onClick={handleShowModal}>open</button>
+                <button onClick={handleModal}>open</button>
                 <Modal
                     isOpen={isOpen}
-                    onClose={setIsOpen}
+                    onClose={handleModal}
                 >
                     <p>{inputValue}</p>
                 </Modal>

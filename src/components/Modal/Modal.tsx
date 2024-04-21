@@ -5,7 +5,7 @@ import {createPortal} from "react-dom";
 
 interface IModal {
     isOpen: boolean,
-    onClose: (open: boolean) => void,
+    onClose: () => void,
     children: React.ReactNode,
 }
 
@@ -13,7 +13,7 @@ export const Modal: FC<IModal> = ({isOpen, onClose, children}) => {
     if (!isOpen) return null;
     const handleCloseModal = (e: React.MouseEvent): void => {
         if (e.target !== e.currentTarget) return;
-        onClose(false);
+        onClose();
     }
 
     return createPortal(

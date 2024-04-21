@@ -1,19 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useParams} from "react-router-dom";
-import {generateRandomProducts} from "src/components/helpers";
 import CardsList from "src/components/CardsList/CardsList";
 import Button from "src/components/Button";
 import {Modal} from "src/components/Modal/Modal";
 import {ProductForm} from "src/components/Forms";
+import {useDispatch, useSelector} from "react-redux";
+import {loadMoreProducts, selectProducts} from "src/store/productsSlice";
 
 const Products = () => {
-    const [products, setProducts] = useState(generateRandomProducts(12));
+    const dispatch = useDispatch();
     const itemsContainer = useRef<HTMLDivElement>(null);
     const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false);
+    const productsStore = useSelector(selectProducts);
 
-    const handleShowModalAdd = (): void => {
-        setIsOpenAdd(true);
+    const handleModalAdd = (): void => {
+        setIsOpenAdd(!isOpenAdd);
     }
+
+    useEffect(() => {
+        dispatch(loadMoreProducts());
+    }, [])
 
     useEffect(() => {
         const lastItem = itemsContainer.current.children[itemsContainer.current.children.length - 1];
@@ -21,7 +26,7 @@ const Products = () => {
             ([entry], observer) => {
                 if (entry.isIntersecting) {
                     observer.unobserve(entry.target);
-                    setProducts(prevProducts => [...prevProducts, ...generateRandomProducts(12)]);
+                    dispatch(loadMoreProducts());
                 }
             }, {rootMargin: '100px 0px 0px'});
 
@@ -29,14 +34,14 @@ const Products = () => {
             infinityObserver.observe(lastItem);
         }
 
-    }, [products]);
+    }, [productsStore]);
 
     return (
         <>
-            <Button label='Добавить товар' onClick={handleShowModalAdd} />
-            <CardsList cardsRef={itemsContainer} products={products}/>
-            <Modal isOpen={isOpenAdd} onClose={setIsOpenAdd}>
-                <ProductForm />
+            <Button label='Добавить товар' onClick={handleModalAdd} />
+            <CardsList cardsRef={itemsContainer} products={productsStore}/>
+            <Modal isOpen={isOpenAdd} onClose={handleModalAdd}>
+                <ProductForm onClose={handleModalAdd}/>
             </Modal>
         </>
     );

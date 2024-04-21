@@ -24,3 +24,12 @@ export const generateRandomProducts = (numberOfNewProducts: number): IProduct[] 
 
     return products;
 }
+
+export const truncateText = (text: string, maxLength: number = 300): string => {
+    if (text.length <= maxLength) {
+        return text;
+    } else {
+        const truncated = text.slice(0, maxLength);
+        return truncated.slice(0, Math.min(truncated.length, truncated.lastIndexOf(' '))) + '...';
+    }
+}

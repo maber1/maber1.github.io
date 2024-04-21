@@ -4,6 +4,8 @@ import Button from "../../Button";
 import cn from "clsx";
 import '../Forms.scss';
 import {useLocation, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {loginUser} from "src/store/userSlice";
 
 type FormData = {
     email: string,
@@ -13,6 +15,7 @@ type FormData = {
 export const AuthForm: React.FC = memo(() => {
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
@@ -35,6 +38,7 @@ export const AuthForm: React.FC = memo(() => {
     }
     const onSubmit = (data: FormData) => {
         console.log(data);
+        dispatch(loginUser());
     };
 
     useEffect(() => {
