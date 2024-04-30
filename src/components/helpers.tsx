@@ -1,4 +1,6 @@
-import {IProduct} from "../types/productTypes";
+// import {IProduct} from "../types/productTypes";
+
+import {IProduct} from "src/api/types";
 
 export const priceFormat = (number: number | string, thousandsSeparator: string = ' ') => (
     number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator)
@@ -14,11 +16,14 @@ export const generateRandomProducts = (numberOfNewProducts: number): IProduct[] 
         const nameIndex = Math.floor(Math.random() * name.length);
 
         products.push({
-            id: Math.floor(Math.random() * 100000),//Math.floor(Math.random() * 100).toString() + nameIndex,
+            id: Math.floor(Math.random() * 100000).toString(),//Math.floor(Math.random() * 100).toString() + nameIndex,
             name: `${name[nameIndex]} ${Math.floor(Math.random() * 1000)}`,
             price: Math.floor(Math.random() * 100000),
-            description: description,
-            image: images[nameIndex],
+            desc: description,
+            photo: images[nameIndex],
+            createdAt: null,
+            updatedAt: null,
+            category: null
         });
     }
 
@@ -26,6 +31,7 @@ export const generateRandomProducts = (numberOfNewProducts: number): IProduct[] 
 }
 
 export const truncateText = (text: string, maxLength: number = 300): string => {
+    if (!text) return text;
     if (text.length <= maxLength) {
         return text;
     } else {

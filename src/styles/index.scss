@@ -13,8 +13,13 @@ body {
   @include theme(color, text);
   @include theme(background-color, mainBg);
 }
+
 pre {
   white-space: pre-wrap;
+}
+
+b {
+  font-weight: bold;
 }
 
 .input {
@@ -31,4 +36,17 @@ pre {
   &__error {
     border-color: #cc3a3a !important;
   }
+}
+
+.error {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%,-50%);
+  color: #cc3a3a;
+  margin-top: 20px;
+  border: 1px solid;
+  padding: 20px;
+  background: #fff;
+  min-width: 200px;
 }

@@ -6,25 +6,23 @@ import {ThemeSwitcher} from "../ThemeSwitcher/ThemeSwitcher";
 import {LangSwitcher} from "../LangSwitcher/LangSwitcher";
 import {useNavigate} from "react-router-dom";
 import Button from "../../components/Button";
-import IconLogout from "../../icons/logout.svg"
-import {useDispatch, useSelector} from "react-redux";
-import {store, StoreDispatch} from "src/store";
-import {logoutUser, selectIsAdmin, selectIsAuth, setAdmin} from "src/store/userSlice";
+import {store} from "src/store";
+import {logoutUser, selectIsAuth} from "src/store/userSlice";
 import {Modal} from "src/components/Modal/Modal";
+import {useAppDispatch, useAppSelector} from "src/hooks";
+import {useTranslation} from "react-i18next";
 
 export const Header: FC = () => {
-    const navigate = useNavigate()
-    const isAuthenticated: boolean = useSelector(selectIsAuth);
-    const dispatch: StoreDispatch = useDispatch();
-    const isAdmin = useSelector(selectIsAdmin);
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const isAuthenticated: boolean = useAppSelector(selectIsAuth);
+    const dispatch = useAppDispatch();
     const [openCollapseState, setOpenCollapseState] = useState(false);
     const openModalState = () => {
         setOpenCollapseState(!openCollapseState);
     };
     const currentState = store.getState();
-    const handleSetAdmin = () => {
-        dispatch(setAdmin());
-    }
+
     const handleLogout = () => {
         dispatch(logoutUser());
         navigate('/login');
@@ -48,10 +46,13 @@ export const Header: FC = () => {
                         <ThemeSwitcher/>
                         <LangSwitcher/>
                     </div>
-                    {isAuthenticated &&
+                    {!isAuthenticated ?
                         <div style={{marginLeft: 20}}>
-                            <Button label={!isAdmin ? 'set admin' : 'del admin'} onClick={handleSetAdmin}/>
-                            <Button icon={<IconLogout/>} onClick={handleLogout}/>
+                            <Button label={t(`components.button.login`)} onClick={handleLogout}/>
+                        </div>
+                        :
+                        <div style={{marginLeft: 20}}>
+                            <Button label={t(`components.button.logout`)} onClick={handleLogout}/>
                         </div>
                     }
                 </div>

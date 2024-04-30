@@ -4,23 +4,27 @@ import Button from "../../Button";
 import cn from "clsx";
 import '../Forms.scss';
 import {useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {loginUser} from "src/store/userSlice";
+import {auth, fetchProfile, selectToken} from "src/store/userSlice";
+import {useAppDispatch, useAppSelector} from "src/hooks";
+import {useTranslation} from "react-i18next";
 
 type FormData = {
     email: string,
     password: string,
+    commandId?: string
 };
 
 export const AuthForm: React.FC = memo(() => {
     const location = useLocation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const token = useAppSelector(selectToken);
     const {
         register,
         handleSubmit,
-        formState: {errors, isSubmitSuccessful},
+        formState: {errors},
         reset,
+        setFocus,
     } = useForm<FormData>();
 
     const requiredFieldText = '*обязательное поле';
@@ -37,19 +41,25 @@ export const AuthForm: React.FC = memo(() => {
         }
     }
     const onSubmit = (data: FormData) => {
-        console.log(data);
-        dispatch(loginUser());
+        const {email, password} = data;
+        dispatch(auth({email, password}));
+        reset();
     };
 
     useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset();
+        setFocus('email')
+    }, [])
+
+    useEffect(() => {
+        if (token) {
+            dispatch(fetchProfile());
             navigate(location.state?.from || '/');
         }
-    }, [isSubmitSuccessful])
+    }, [token]);
 
     return (
-        <form className='form' onSubmit={handleSubmit(onSubmit)}>
+        <form className='form' onSubmit={handleSubmit(onSubmit)}
+              style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
             <div className="form__group">
                 <label>Email:</label>
                 <input
@@ -68,7 +78,7 @@ export const AuthForm: React.FC = memo(() => {
                 {errors.password && <p className='form__errors'>{errors.password.message}</p>}
             </div>
 
-            <Button type="submit" label='Авторизация' />
+            <Button type="submit" label='Авторизация'/>
         </form>
     );
 });

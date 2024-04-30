@@ -49,7 +49,7 @@ export const RegisterForm: React.FC = memo(() => {
         }
     };
     const onSubmit = (data: FormData) => {
-        console.log(data);
+
     };
 
     useEffect(() => {

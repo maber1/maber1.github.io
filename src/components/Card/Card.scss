@@ -3,6 +3,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 15px 25px;
   max-width: 250px;
   transition: box-shadow .2s ease-in;
@@ -17,9 +18,11 @@
 
   &__picture {
     width: 100%;
+    min-height: 200px;
+    min-width: 200px;
     margin: 0 auto;
     aspect-ratio: 1/1;
-    mix-blend-mode: multiply;
+    //mix-blend-mode: multiply;
   }
 
   &__name {
