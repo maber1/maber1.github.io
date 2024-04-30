@@ -14,13 +14,7 @@ const CardsList: FC<IProducts> = ({products, cardsRef}) => {
         <div className="cards" ref={cardsRef}>
             {
                 products.map((item) => (
-                    <Card
-                        key={item.id}
-                        image={item.image}
-                        name={item.name}
-                        description={item.description}
-                        price={item.price}
-                    />
+                    <Card key={item.id} product={item}/>
                 ))
             }
         </div>
