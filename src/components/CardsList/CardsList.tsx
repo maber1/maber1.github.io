@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import "./CardsList.scss";
 import {Card} from "../Card/Card";
-import {IProduct} from "src/types/productTypes";
+import {IProduct} from "src/api/types";
 
 interface IProducts {
     products: IProduct[],

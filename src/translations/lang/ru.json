@@ -3,6 +3,14 @@
     "testComponent": {
       "greeting": "Привет",
       "buttonText": "Кликни меня"
+    },
+    "button": {
+      "login": "Войти",
+      "logout": "Выйти"
     }
+  },
+  "error": {
+    "ERR_INCORRECT_EMAIL_OR_PASSWORD" : "Неверный email или пароль",
+    "ERR_AUTH" : "Ошибка авторизации"
   }
 }

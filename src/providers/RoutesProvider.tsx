@@ -6,12 +6,13 @@ import Cart from "src/pages/Cart";
 import Products from "src/pages/Products";
 import Login from "src/pages/Login";
 import NotFound from "src/pages/NotFound";
-import {useSelector} from "react-redux";
 import {selectToken} from "src/store/userSlice";
+import {useAppSelector} from "src/hooks";
+import Orders from "src/pages/Orders";
 
 export const AuthRequired = ({children}: { children: JSX.Element }) => {
     const location = useLocation();
-    const token = useSelector(selectToken);
+    const token = useAppSelector(selectToken);
     return token ? children : <Navigate to='/login' state={{from: location}} replace/>;
 };
 
@@ -23,6 +24,7 @@ export const RoutesProvider = () => (
         <Route path="/products" element={<Products/>}>
             <Route path=':id' element={<Products/>}/>
         </Route>
+        <Route path="/orders" element={<AuthRequired><Orders/></AuthRequired>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="*" element={<NotFound/>}/>
     </Routes>

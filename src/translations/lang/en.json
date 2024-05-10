@@ -3,6 +3,14 @@
     "testComponent": {
       "greeting": "Hello",
       "buttonText": "Click me"
+    },
+    "button": {
+      "login": "Signin",
+      "logout": "Logout"
     }
+  },
+  "error": {
+    "ERR_INCORRECT_EMAIL_OR_PASSWORD" : "Invalid email or password",
+    "ERR_AUTH" : "Authorisation Error"
   }
 }

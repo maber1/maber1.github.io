@@ -1,21 +1,56 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {
+    IDataErrorResponse,
+    IAuthSuccessResponse,
+    IProfile,
+    TypeAuthResponse,
+    TypeProfileResponse, IUser,
+} from "src/api/types";
+import {makeQuery} from "src/api";
+import {setError} from "src/store/appSlice";
 
-const userData = {
-    id: "2",
-    name: "adm",
-    email: "adm@aaa.aa",
-    isAdmin: true,
-}
-interface User {
-    id: string,
-    name: string,
-    email: string,
-    isAdmin: boolean,
-}
+
+export const auth = createAsyncThunk(
+    "user/auth",
+    async ({email, password}: { email: string, password: string }, {rejectWithValue, dispatch}) => {
+        try {
+            const response = await makeQuery<TypeAuthResponse>('signin', 'POST', {email, password});
+            if (!response.ok) {
+                const error = (response.data as IDataErrorResponse)
+                dispatch(setError({
+                    error: error.errors[0].message,
+                    code: error.errors[0].extensions.code
+                }))
+            }
+            return response;
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
+export const fetchProfile = createAsyncThunk(
+    "user/fetchProfile",
+    async (_, {rejectWithValue, dispatch}) => {
+        try {
+            const response = await makeQuery<TypeProfileResponse>('profile', 'GET', null, true);
+            if (!response.ok) {
+                const error = (response.data as IDataErrorResponse)
+                dispatch(setError({
+                    error: error.errors[0].message,
+                    code: error.errors[0].extensions.code
+                }))
+            }
+            return response;
+        } catch (e) {
+            return rejectWithValue(e);
+        }
+    }
+);
 
 interface UserState {
     access_token?: string | null,
-    userInfo: User | null,
+    userInfo: IUser | null,
     isAuthenticated: boolean,
 }
 
@@ -29,15 +64,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        loginUser: (state) => {
-            const token = [...Array(16)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-            state.access_token = token;
-            state.userInfo = userData;
-            state.isAuthenticated = true;
-            localStorage.setItem('access_token', token);
-            localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
-            localStorage.setItem('isAuthenticated', String(true));
-        },
         logoutUser: (state) => {
             state.access_token = null;
             state.userInfo = null;
@@ -46,17 +72,39 @@ const userSlice = createSlice({
             localStorage.removeItem('userInfo');
             localStorage.removeItem('isAuthenticated');
         },
-        setAdmin: (state) => {
-            state.userInfo.isAdmin = !state.userInfo.isAdmin;
-            state.userInfo = {...state.userInfo, isAdmin: state.userInfo.isAdmin}
-            localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
-        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(auth.fulfilled, (state, {payload}) => {
+                if (payload.ok) {
+                    const {token} = (payload.data as IAuthSuccessResponse)
+                    state.access_token = token;
+                    state.isAuthenticated = true;
+                    localStorage.setItem('access_token', token);
+                    localStorage.setItem('isAuthenticated', String(true));
+                }
+            })
+        builder
+            .addCase(fetchProfile.fulfilled, (state, {payload}) => {
+                if (payload.ok) {
+                    const {id, name, email, signUpDate} = (payload.data as IProfile)
+                    state.userInfo = {
+                        id: id,
+                        name: name,
+                        email: email,
+                        signUpDate: signUpDate,
+                    };
+                    localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
+                }
+            })
     },
 });
 
-export const {loginUser, logoutUser, setAdmin} = userSlice.actions;
-export const selectToken = (state: {user: UserState}) => state.user.access_token;
-export const selectIsAuth = (state: {user: UserState}) => state.user.isAuthenticated;
-export const selectUserInfo = (state: {user: UserState}) => state.user.userInfo;
-export const selectIsAdmin = (state: {user: UserState}) => state.user.userInfo?.isAdmin;
+export const {
+    logoutUser,
+} = userSlice.actions;
+
+export const selectToken = (state: { user: UserState }) => state.user.access_token;
+export const selectIsAuth = (state: { user: UserState }) => state.user.isAuthenticated;
+export const selectUserInfo = (state: { user: UserState }) => state.user.userInfo;
 export default userSlice.reducer;

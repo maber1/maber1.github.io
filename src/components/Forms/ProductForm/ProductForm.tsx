@@ -1,17 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import Button from "../../Button";
 import cn from "clsx";
 import '../Forms.scss';
-import {IProduct} from "src/types/productTypes";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "src/hooks";
+import {IProduct} from "src/api/types";
 import {addProduct, updateProduct} from "src/store/productsSlice";
 
 type FormData = {
     name: string,
-    description: string,
-    price: string,
-    image: string,
+    desc: string,
+    price: number,
+    oldPrice?: number;
+    photo: string,
+    categoryId: string,
 };
 
 interface ProductFormProps {
@@ -19,8 +21,8 @@ interface ProductFormProps {
     onClose?: () => void
 }
 
-export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
-    const dispatch = useDispatch();
+export const ProductForm: React.FC<ProductFormProps> = memo(({product, onClose}) => {
+    const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
@@ -28,6 +30,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
         reset,
     } = useForm<FormData>();
     const requiredFieldText = '*обязательное поле';
+    const id = product?.id;
     const formOptions = {
         name: {
             required: requiredFieldText,
@@ -36,7 +39,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
                 message: 'Минимальная длинна 3 символа'
             }
         },
-        description: {
+        desc: {
             required: requiredFieldText,
         },
         price: {
@@ -44,18 +47,30 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
                 value: 1,
                 message: 'Не меньше 1'
             },
-            value: '',
             required: requiredFieldText,
         },
-        image: {
+        oldPrice: {
+            min: {
+                value: 1,
+                message: 'Не меньше 1'
+            },
             required: requiredFieldText,
-        }
+        },
+        photo: {
+            required: requiredFieldText,
+        },
+        categoryId: {
+            required: requiredFieldText,
+            minLength: {
+                value: 3,
+                message: 'Минимальная длинна 3 символа'
+            }
+        },
     }
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
-        if (product) {
-            dispatch(updateProduct({...product, ...data}));
+        if (id) {
+            dispatch(updateProduct({...data, id}));
         } else {
             dispatch(addProduct(data));
         }
@@ -64,16 +79,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
 
     useEffect(() => {
         if (isSubmitSuccessful) {
-            reset();
+            // reset();
         }
 
         if (product?.id) {
-            //fetch
             reset({
                 name: product.name,
-                description: product.description,
-                price: product.price.toString(),
-                image: product.image
+                photo: product?.photo,
+                desc: product?.desc,
+                oldPrice: product?.oldPrice,
+                price: product.price,
+                categoryId: product.category.id,
             });
         }
     }, [product, isSubmitSuccessful])
@@ -98,9 +114,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
                 <div className="form__group">
                     <label>Описание:</label>
                     <textarea rows={5} cols={50}
-                              className={cn('input', errors.description && 'input__error')}
-                              {...register('description', formOptions.description)} />
-                    {errors.description && <p className='form__errors'>{errors.description.message}</p>}
+                              className={cn('input', errors.desc && 'input__error')}
+                              {...register('desc', formOptions.desc)} />
+                    {errors.desc && <p className='form__errors'>{errors.desc.message}</p>}
                 </div>
                 <div className="form__group">
                     <label>Цена:</label>
@@ -111,19 +127,36 @@ export const ProductForm: React.FC<ProductFormProps> = ({product, onClose}) => {
                     {errors.price && <p className='form__errors'>{errors.price.message}</p>}
                 </div>
                 <div className="form__group">
+                    <label>Старая цена:</label>
+                    <input
+                        type="number"
+                        className={cn('input', errors.oldPrice && 'input__error')}
+                        {...register('oldPrice', formOptions.oldPrice)} />
+                    {errors.oldPrice && <p className='form__errors'>{errors.oldPrice.message}</p>}
+                </div>
+                <div className="form__group">
                     <label>Изображение:</label>
-                    {product?.image && <div>
-                        <img src={product.image} alt="" width={100}/>
+                    {product?.photo && <div>
+                        <img src={product.photo} alt="" width={100}/>
                     </div>}
                     <input
                         type="text"
-                        className={cn('input', errors.image && 'input__error')}
-                        {...register('image', formOptions.image)} />
-                    {errors.image && <p className='form__errors'>{errors.image.message}</p>}
+                        className={cn('input', errors.photo && 'input__error')}
+                        {...register('photo', formOptions.photo)} />
+                    {errors.photo && <p className='form__errors'>{errors.photo.message}</p>}
+                </div>
+                <div className="form__group">
+                    <label>Категория:</label>
+                    <input
+                        type="text"
+                        value='662ca6777011ea8061076894'
+                        className={cn('input', errors.categoryId && 'input__error')}
+                        {...register('categoryId', formOptions.categoryId)} />
+                    {errors.categoryId && <p className='form__errors'>{errors.categoryId.message}</p>}
                 </div>
 
                 <Button type="submit" label={product?.id ? 'Сохранить' : 'Создать'}/>
             </form>
         </>
     );
-};
+});
